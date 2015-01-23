@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 # backend
 gem 'sinatra'
 gem 'thin'
-gem 'dropbox'
+gem 'dropbox-sdk'
 
 # db
 gem 'mongoid'
