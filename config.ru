@@ -1,0 +1,3 @@
+require './bookbox'
+
+run BookBox
