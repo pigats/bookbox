@@ -13,7 +13,6 @@ require 'open-uri'
 require './models/user'
 require './models/book'
 
-require './workers/books_pusher'
 
 require 'json'
 
@@ -59,11 +58,17 @@ class BookBox < Sinatra::Base
 
   get '/signup/genre' do 
     @user = User.find(session[:user_id])
-    return @user.name
+    @signup_stage = 'choose_genre'
+    haml :index
   end
 
   get '/users/update' do
     params[:challenge]
+  end
+  
+  get '/users/thanks' do 
+    signup_stage = 'finished'
+    haml :index
   end
 
   post '/users/update' do

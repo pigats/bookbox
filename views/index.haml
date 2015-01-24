@@ -21,9 +21,15 @@
 
       %h1.title Bookbox. 
       %h2.title Your next favourite book
+      
+      - case @signup_stage
+        - when 'signup' 
+          = haml :_signup
+        - when 'choose_genre'
+          = haml :_choose_genre
+        - when 'finished'
+          = haml :_thanks
 
-       
-      = haml @signup_stage
 
       %ul.ui-description
         %li.ui-description-item.book-new.current
