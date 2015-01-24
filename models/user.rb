@@ -27,6 +27,7 @@ class User
 		delta = client.delta(user.dropbox_delta_cursor)
 		user.dropbox_delta_cursor = delta['cursor']
 		user.save!
+		puts delta['entries'].inspect
 
 		delta['entries'] ||= []
 		delta['entries'].each do |entry|
@@ -43,12 +44,14 @@ class User
 				if dir == '/read' and File.extname(filename) == '.epub'
 					#file moved inside read dir saying was READ
 					user.upload_next_unread_book(:read)
+					break
 				end
 			else
 				if dir == '/' and File.extname(filename) == '.epub'
 					#epub file deleted
 					#we now provide a new one saying was UNLIKED
 					user.upload_next_unread_book(:unliked)
+					break
 				end
 			end 
 		end
@@ -82,7 +85,7 @@ class User
 			books = books.where(_id: {'$nin' => [self.current_book_id]})
 		end
 		
-		books.first()
+		books.skip(rand(1000)).first()
 	end
 
 	#uploads to dropbox the next unread book
@@ -104,10 +107,19 @@ class User
 			end
 			self.save!
 		end
-		
-
-		book = next_unread_book
-		upload_book(book)
+		tries = 0
+		begin
+			book = next_unread_book
+			puts book.epub_url
+			upload_book(book)
+		rescue Exception => e
+			puts "Error: #{e}"
+			if tries < 10
+				book = next_unread_book
+				tries += 1
+				retry
+			end
+		end
 	end
 
 	def upload_book(book)
