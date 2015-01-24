@@ -1,3 +1,60 @@
-%h1 Hello world
+= haml :_head
 
-%a{href: @auth_url} sign up
+%body
+
+  .container.hero
+    %ul.column.column-double.laptop
+      %li.laptop-desktop.current{'data-related-p' => '.book-new'}
+        %img{src: image_path('bookbox_screen_book_new.png')}
+
+      %li.laptop-desktop{'data-related-p' => '.book-reading'}
+        %img{src: image_path('bookbox_screen_book_reading.png')}
+
+      %li.laptop-desktop{'data-related-p' => '.book-read'}
+        %img{src: image_path('bookbox_screen_book_read.png')}
+
+      %li.laptop-desktop{'data-related-p' => '.book-dislike'}
+        %img{src: image_path('bookbox_screen_book_remove.png')}
+
+
+    %section.column.hero-content
+
+      %h1.title Bookbox. 
+      %h2.title Your next favourite book
+      
+      - case @signup_stage
+        - when 'signup' 
+          = haml :_signup
+        - when 'choose_genre'
+          = haml :_choose_genre
+        - when 'finished'
+          = haml :_thanks
+
+
+      %ul.ui-description
+        %li.ui-description-item.book-new.current
+          %h3 A new book, delivered in no time
+          %p As soon as you join, we will immediately pick a book we think you&#39;ll like
+
+        %li.ui-description-item.book-reading 
+          %h3 Your very own reading experience
+          %p You know how you like to read: choose your pace,on the device you're more comfortable with 
+        %li.ui-description-item.book-read 
+          %h3 Once you&#39;re finished&hellip;
+          %p Wow, that was quick! Now just move the book into the &ldquo;Read&rdquo; folder. We will note down you liked this one, and will send a new book.
+
+        %li.ui-description-item.book-dislike 
+          %h3 What if you don&#39;t like it?
+          %p It will happen, we may choose the wrong book. Just delete it from your dropbox and we will take note it was a no-no. Over time we will get better and better!
+
+  %section.container.partners
+    %article.column.partner
+      gutenberg
+
+    %article.column.partner
+      dropbox
+
+    %article.column.partner
+      heroku
+    
+= haml :_footer
