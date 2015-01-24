@@ -4,6 +4,7 @@ source 'https://rubygems.org'
 gem 'sinatra'
 gem 'thin'
 gem 'dropbox-sdk'
+gem 'sidekiq'
 
 # db
 gem 'mongoid'
@@ -13,3 +14,4 @@ gem 'sinatra-asset-pipeline'
 gem 'haml'
 gem 'sass'
 gem 'coffee-script'
+

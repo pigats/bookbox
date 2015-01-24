@@ -1,7 +1,8 @@
 require 'sinatra'
 require 'sinatra/asset_pipeline'
 require 'dropbox_sdk'
-require 'pry'
+require './workers/books_worker'
+#require 'pry'
 
 class BookBox < Sinatra::Base
   register Sinatra::AssetPipeline  
@@ -24,8 +25,9 @@ class BookBox < Sinatra::Base
   end
 
   get '/signup/genre' do 
-    DropboxClient.new(session[:dropbox_token]).put_file('/test.jpg', open('./test.jpg'))  
-    'yay'
+    #DropboxClient.new(session[:dropbox_token]).put_file('/test.jpg', open('./test.jpg'))  
+    DropboxClient.new(session[:dropbox_token]).account_info().inspect
+    #'yay'
   end
 
 end
