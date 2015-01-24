@@ -7,7 +7,8 @@ class User
 	
 	field :dropbox_id, type: String
 	field :dropbox_token, type: String
-
+	field :dropbox_locale, type: String
+	
 	field :genres, type: Array, default: []
 
 	field :current_reading, type: Hash, default: {}
@@ -32,6 +33,7 @@ class User
 	# :read -> the book goes to read_books {_id: book.id, read_at:, started_at:} 
 	# :unliked -> the book goes to unliked_books
 	def upload_next_unread_book(current_book_state=:read)
+
 	end
 
 
