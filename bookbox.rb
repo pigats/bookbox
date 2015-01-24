@@ -13,7 +13,7 @@ class BookBox < Sinatra::Base
   enable :sessions
 
   configure do
-    Mongoid.load!('mongoid.yml',Sinatra::Base.environment)
+    Mongoid.load!('mongoid.yml', environment)
   end
 
   def dropbox_auth_flow
