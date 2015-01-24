@@ -6,6 +6,9 @@ gem 'thin'
 gem 'dropbox-sdk'
 gem 'sidekiq'
 
+#importer
+gem 'linkeddata'
+
 # db
 gem 'mongoid'
 

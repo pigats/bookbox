@@ -8,11 +8,12 @@ class User
 	field :dropbox_id, type: String
 	field :dropbox_token, type: String
 
-	field :genres, type: Array
+	field :genres, type: Array, default: []
 
-	field :current_book, type: Hash
-	field :read_books, type: Array
-	field :unliked_books, type: Array
+	field :current_reading, type: Hash, default: {}
+	field :read_readings, type: Array, default: []
+	field :unliked_readings, type: Array, default: []
+
 
 	index({email: 1}, {unique: true})
 	index({dropbox_id: 1}, {unique: true})
@@ -20,7 +21,6 @@ class User
 
 	#randomly find the next book which is not current_book
 	#or in the read_books, unliked_books 
-
 	def next_unread_book()
 	end
 

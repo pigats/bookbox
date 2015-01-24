@@ -1,4 +1,10 @@
 require 'linkeddata'
+require 'mongoid'
+
+require './models/user'
+require './models/book'
+
+Mongoid.load!('mongoid.yml', 'development')
 
 cache_path = ARGV[0]
 
@@ -20,21 +26,24 @@ paths.each do |path|
     subjects_s = [] 
     formats_s = [] 
     formats_value_s = [] 
-    
+
+    book = Book.new({gutenberg_id: id})
+    has_epub = false
     reader.each_triple do |s, p, o|
-      puts "title: #{o}" if p == title_p
-      puts "author name: #{o}" if p == author_p
-      puts "birth: #{o}" if p == author_birth_p  
-      puts "death: #{o}" if p == author_death_p
-      puts "epub: OK" if p == format_p and o.to_s.include? 'epub'
+      book.title = o.to_s if p == title_p
+      book.author[:name] = o.to_s if p == author_p
+      book.author[:dob] = o.to_i if p == author_birth_p  
+      book.author[:dod] = o.to_i if p == author_death_p
+      has_epub = true if p == format_p and o.to_s.include? 'epub'
       subjects_s << o if p == subject_p
     end
-    
-    print 'subjects: '
-    reader.each_triple do |s, p, o|
-      print "#{o}; " if subjects_s.include? s and p == value_p
-    end 
-    
+
+    if has_epub
+      reader.each_triple do |s, p, o|
+        book.genres << o.to_s if subjects_s.include? s and p == value_p
+      end       
+      book.save
+    end
 
   end
   puts
