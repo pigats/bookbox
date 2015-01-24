@@ -1,13 +1,21 @@
 require 'sinatra'
 require 'sinatra/asset_pipeline'
 require 'dropbox_sdk'
+require 'mongoid'
+
+require './models/user'
+require './models/book'
 require './workers/books_worker'
-#require 'pry'
+
 
 class BookBox < Sinatra::Base
   register Sinatra::AssetPipeline  
   enable :sessions
-  
+
+  configure do
+    Mongoid.load!('mongoid.yml',Sinatra::Base.environment)
+  end
+
   def dropbox_auth_flow
     DropboxOAuth2Flow.new(ENV['DROPBOX_KEY'], ENV['DROPBOX_SECRET'], url('/signup/dropbox'), session, :dropbox_auth_csrf_token) 
   end
