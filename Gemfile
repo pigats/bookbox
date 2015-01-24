@@ -14,4 +14,7 @@ gem 'sinatra-asset-pipeline'
 gem 'haml'
 gem 'sass'
 gem 'coffee-script'
+gem 'compass'
+gem 'susy'
+
 

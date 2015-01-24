@@ -1,3 +1,7 @@
+require 'compass'
+require 'susy'
+require 'coffee-script'
+
 require 'sinatra'
 require 'sinatra/asset_pipeline'
 require 'dropbox_sdk'
@@ -21,6 +25,7 @@ class BookBox < Sinatra::Base
   end
 
   get '/' do 
+    @signup_stage = 'signup'
     @auth_url = dropbox_auth_flow.start 
     haml :index
   end
