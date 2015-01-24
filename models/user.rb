@@ -20,20 +20,20 @@ class User
 
 	#randomly find the next book which is not current_book
 	#or in the read_books, unliked_books 
-	def next_unread_book
+
+	def next_unread_book()
 	end
 
 	#uploads to dropbox the next unread book
 	#and sets it as current_book
 	#it uses 'next_unread_book'
-	def upload_next_unread_book
-	end
-
-	#better method name?
+	#
+	# current_book_state (did the user like it?)
 	# :read -> the book goes to read_books {_id: book.id, read_at:, started_at:} 
 	# :unliked -> the book goes to unliked_books
-	def set_current_book(state=:read)
+	def upload_next_unread_book(current_book_state=:read)
 	end
 
-	
+
+
 end
