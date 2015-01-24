@@ -11,6 +11,7 @@ require './models/book'
 
 require './workers/books_pusher'
 
+require 'json'
 
 class BookBox < Sinatra::Base
   register Sinatra::AssetPipeline  
@@ -54,6 +55,17 @@ class BookBox < Sinatra::Base
   get '/signup/genre' do 
     @user = User.find(session[:user_id])
     return @user.name
+  end
+
+  get '/users/update' do
+    params[:challenge]
+  end
+
+  post '/users/update' do
+    json = JSON.parse(request.body.string)  
+    delta = json['delta']
+    users = delta['users']
+    
   end
 
 end
