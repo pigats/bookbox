@@ -2,10 +2,14 @@ require 'sinatra'
 require 'sinatra/asset_pipeline'
 require 'dropbox_sdk'
 require 'mongoid'
+require 'resque'
+require 'redis'
+require 'open-uri'
 
 require './models/user'
 require './models/book'
-require './workers/books_worker'
+
+require './workers/books_pusher'
 
 
 class BookBox < Sinatra::Base
@@ -42,6 +46,7 @@ class BookBox < Sinatra::Base
       @user.dropbox_locale = user_info['locale']
     end
     @user.save
+    @user.create_dirs
     session[:user_id] = @user._id
     redirect url('/signup/genre')
   end

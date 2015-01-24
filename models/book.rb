@@ -15,4 +15,8 @@ class Book
 		Book.pluck(:genres).flatten.uniq.sort {|a,b| a <=> b}
 	end
 
+	def epub_url
+		"http://www.gutenberg.org/ebooks/#{self.gutenberg_id}.epub"
+	end
+
 end

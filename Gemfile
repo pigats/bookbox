@@ -4,7 +4,8 @@ source 'https://rubygems.org'
 gem 'sinatra'
 gem 'thin'
 gem 'dropbox-sdk'
-gem 'sidekiq'
+gem 'resque'
+gem 'redis'
 
 #importer
 gem 'linkeddata'
