@@ -67,7 +67,7 @@ class BookBox < Sinatra::Base
   end
   
   get '/users/thanks' do 
-    signup_stage = 'finished'
+    @signup_stage = 'finished'
     haml :index
   end
 
